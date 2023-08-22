@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const auth = require('./middleware/auth');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 
@@ -13,8 +14,9 @@ app.use(bodyParser.json());
 require('./config/db.js');
 
 // Routes
-app.use('/api/users', require('./routes/api/users'));
-// .. other routes 
+app.use('/', require('./routes'));
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
