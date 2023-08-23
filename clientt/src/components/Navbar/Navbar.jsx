@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import "./Navbar.scss"
 
 const Navbar = () => {
-  const [open, setOpen]
+ 
   return (
     <div className='navbar'>
       <div className="wrapper"> 
