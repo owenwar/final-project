@@ -38,6 +38,26 @@ function Signup() {
                 </div>
                 <div className="form">
                     <form onSubmit={handleFormSubmit}>
+                        <div className="firstname">
+                            <label htmlFor="firstName">First Name</label>
+                            <input
+                                placeholder="Your first name"
+                                name="firstName"
+                                type="firstName"
+                                id="firstName"
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="lastname">
+                            <label htmlFor="lastName">Last Name</label>
+                            <input
+                                placeholder="Your last name"
+                                name="lastName"
+                                type="lastName"
+                                id="lastName"
+                                onChange={handleChange}
+                            />
+                        </div>
                         <div className="username">
                             <label htmlFor="username">Username</label>
                             <input
