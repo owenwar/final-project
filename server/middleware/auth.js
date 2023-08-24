@@ -1,5 +1,5 @@
-const config = require('config');
-const jwtSecret = config.get('jwtSecret');
+require('dotenv').config();
+const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
     // Get token from header
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
 
     // Verify token
     try {
-        const decoded = jwt.verify(token, config.get('jwtSecret'));
+        const decoded = jwt.verify(token, jwtSecret);
         req.user = decoded.user;
         next();
     } catch (err) {
