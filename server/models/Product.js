@@ -9,7 +9,12 @@ const productSchema = new mongoose.Schema({
     category: String,
     colorTag: String,
     createdAt: { type: Date, default: Date.now },
-    updatedAt: Date
+    updatedAt: Date,
+    gender: {
+        type: String,
+        enum: ['male', 'female'],  // Only allow these values
+        required: true
+    },
 });
 
 module.exports = mongoose.model('Product', productSchema);

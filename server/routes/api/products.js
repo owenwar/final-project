@@ -33,6 +33,17 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-
+// Get products based on gender
+router.get('/:gender', async (req, res) => {
+    const gender = req.params.gender;
+  
+    try {
+      const genderProducts = await Product.find({ gender });
+      res.json(genderProducts);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  });
 
 module.exports = router;
