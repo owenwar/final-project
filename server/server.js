@@ -1,31 +1,44 @@
-require('dotenv').config();
 const express = require('express');
-const path = require('path'); 
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const auth = require('./middleware/auth');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const { ApolloServer } = require('apollo-server-express');
+const path = require('path');
+const db = require('./config/db');
+const { typeDefs, resolvers } = require('./schemas');
+const { authMiddleware } = require('./middleware/auth');
 
+const PORT = process.env.PORT || 3001;
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(bodyParser.json());
+// Apollo Server setup
+const startServer = async () => {
+  // Apollo Server setup
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware
+  });
 
-// Connect to MongoDB
-require('./config/db.js');
+  await server.start();
+  server.applyMiddleware({ app });
 
-// Routes
-app.use('/', require('./routes'));
+  console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`); // <-- Move this line here
+};
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+startServer();
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Serve up static assets
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+  });
 });
