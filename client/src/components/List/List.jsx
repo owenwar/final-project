@@ -2,6 +2,7 @@ import React from 'react'
 import "./List.scss"
 import Card from '../Card/Card';
 
+
 const List = () => {
     const data = [
         {

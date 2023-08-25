@@ -6,6 +6,7 @@ import List from "../../components/List/List";
 
 const Products = () => {
 
+    const { id: gender } = useParams(); 
     const catId = parseInt(useParams().id)
     const [maxPrice,setMaxPrice] = useState(1000)
     const [sort, setSort] = useState(null)
