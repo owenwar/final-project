@@ -25,3 +25,12 @@ export const LOGIN_USER = gql`
     }
 
 `;
+
+export const ADD_PRODUCT = gql`
+  mutation AddProduct($image: Upload!, $type: String!, $name: String!, $description: String!, $price: Float!) {
+    addProduct(image: $image, type: $type, name: $name, description: $description, price: $price) {
+      id
+      name
+    }
+  }
+`;

@@ -17,11 +17,12 @@ const typeDefs = gql`
 
     type Product {
         id: ID!
+        imageUrl: String!
         name: String!
         description: String!
         price: Float!
         gender: String!
-        imageUrl: String!
+        
     }
 
     type Order {

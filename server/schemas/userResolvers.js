@@ -4,17 +4,11 @@ const Order = require('../models/Order');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const resolvers = {
+const userResolvers = {
     Query: {
         async user(_, args, context) {
             const user = await User.findById(context.user.id).select('-password');
             return user;
-        },
-        async products() {
-            return await Product.find();
-        },
-        async product(_, { id }) {
-            return await Product.findById(id);
         }
     },
     Mutation: {
@@ -39,11 +33,6 @@ const resolvers = {
             }
             const token = jwt.sign({ id: user._id }, 'YOUR_SECRET_KEY'); // Replace 'YOUR_SECRET_KEY' with your actual secret
             return { token, user };
-        },
-        async createOrder(_, { products }) {
-            const newOrder = new Order({ products });
-            await newOrder.save();
-            return newOrder;
         },
         async addToCart(_, { productId }, context) {
             const user = await User.findById(context.user.id);
@@ -78,4 +67,4 @@ const resolvers = {
     }
 };
 
-module.exports = resolvers;
+module.exports = userResolvers;

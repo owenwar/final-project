@@ -8,13 +8,14 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
+import AdminForm from "./pages/AdminForm/AdminForm";
 import "./app.scss"
 const Layout = () => {
   return (
     <div className="app">
-      <Navbar/>
-      <Outlet/>
-      <Footer/>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </div>
   )
 }
@@ -22,7 +23,7 @@ const Layout = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path:"/",
@@ -35,15 +36,19 @@ const router = createBrowserRouter([
       {
         path:"/product/:id",
         element: <Product/>
+      },
+      {
+        path: "/admin",
+        element: <AdminForm/>
       }
     ]
   },
 ])
 
 function App() {
-  return(
+  return (
     <div>
-     <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </div>
   );
 }
