@@ -24,6 +24,7 @@ const startServer = async () => {
 };
 
 startServer();
+app.use('/api', require('./routes/api'));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
