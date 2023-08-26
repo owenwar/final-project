@@ -4,7 +4,7 @@ const ProductSeeds = require('./productSeeds.json');
 const cleanDB = require('./cleanDB');
 
 db.once('open', async () => {
-  await cleanDB('Products');
+  await cleanDB('Product', 'Products');
 
   await Product.create(ProductSeeds);
 

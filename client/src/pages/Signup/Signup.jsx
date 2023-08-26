@@ -1,34 +1,37 @@
-import React from 'react';
-import { useState } from 'react';
-import {Link} from "react-router-dom";
-import "./Signup.scss"
-import Auth from "../utils/auth";
-import { useMutation } from '@apollo/client';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Signup.scss';
+import Auth from '../../utils/auth';
+import axios from 'axios'; // Import Axios
 
 function Signup() {
-    const [formState, setFormState] = useState({ username: '', email: '', password: '' });
-    const [addUser, { error }] = useMutation(ADD_USER);
-  
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const { data } = await addUser({
-                variables: { ...formState }
-            });
-            Auth.login(data.addUser.token);
-        } catch (e) {
-            console.error(e);
-        }
-    };
-  
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-  
-        setFormState({
-            ...formState,
-            [name]: value,
-        });
-    };
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('/api/signup', formState); // Send POST request using Axios
+
+      if (response.status === 200) {
+        Auth.login(response.data.token);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
   
     return (
         <div className="signup">

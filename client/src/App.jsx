@@ -9,6 +9,7 @@ import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
 import AdminForm from "./pages/AdminForm/AdminForm";
+import Signup from "./pages/Signup/Signup";
 import "./app.scss"
 const Layout = () => {
   return (
@@ -40,7 +41,11 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminForm/>
-      }
+      },
+      {
+        path: "/signUp",
+        element: <Signup/>
+      },
     ]
   },
 ])
