@@ -10,8 +10,6 @@ const Products = () => {
     const catId = parseInt(useParams().id)
     const [maxPrice,setMaxPrice] = useState(1000)
     const [sort, setSort] = useState(null)
-    
-
 
     return (
         <div className="products">
@@ -50,7 +48,7 @@ const Products = () => {
                 <img className="catImg" 
                 src="https://cdn.discordapp.com/attachments/892058013098184734/1131690360192630785/IMG_6899.jpg" 
                 alt="" />
-                <List catId={catId} maxPrice={maxPrice} sort={sort}/>
+                <List gender={gender} catId={catId} maxPrice={maxPrice} sort={sort}/>
             </div>
         </div>
     )

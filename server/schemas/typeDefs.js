@@ -21,9 +21,12 @@ const typeDefs = gql`
         name: String!
         description: String!
         price: Float!
-        gender: String!
-        
+        gender: String! 
     }
+
+    type Query {
+        productsByGender(gender: String!): [Product]
+      }
 
     type Order {
         id: ID!

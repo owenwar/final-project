@@ -10,4 +10,18 @@ export const GET_USER_BY_ID = gql`
   }
 `;
 
-
+export const GET_PRODUCTS_BY_GENDER = gql`
+  query getProductsByGender($gender: String!) {
+    productsByGender(gender: $gender) {
+      name
+      description
+      price
+      onSale
+      imageUrl
+      category
+      colorTag
+      createdAt
+      updatedAt
+    }
+  }
+  `;

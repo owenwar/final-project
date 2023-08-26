@@ -7,6 +7,9 @@ const productResolvers = {
         },
         async product(_, { id }) {
             return await Product.findById(id);
+        },
+        async productsByGender(_, { gender }) {
+            return await Product.find({ gender });
         }
     }
 };

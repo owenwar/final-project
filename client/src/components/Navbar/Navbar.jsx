@@ -8,56 +8,59 @@ import Cart from '../Cart/Cart';
 import "./Navbar.scss";
 
 const Navbar = () => {
- const [open, setOpen] = useState(false)
-  return (
-    <div className='navbar'>
-      <div className="wrapper"> 
+  const [open, setOpen] = useState(false)
+  const [selectedGender, setSelectedGender] = useState('male');
 
-        <div className="left">
+    return (
+      <div className='navbar'>
+        <div className="wrapper"> 
 
-        <div className="item">
-          <Link className='link' to="/products/male">Menswear</Link>
-        </div>
+          <div className="left">
 
-        <div className="item">
-          <Link className='link' to="/products/female">Womenswear</Link>
-        </div>
+          <div className="item">
+            <Link className='link' to="/products/male" onClick={() => setSelectedGender('male')}>Menswear</Link>
+            
+          </div>
 
-        </div>
-        <div className="center">
-          <Link className='link' to="/">Lome</Link>
-        </div>
+          <div className="item">
+            <Link className='link' to="/products/female" onClick={() => setSelectedGender('female')}>Womenswear</Link>
+          </div>
 
-        <div className="right">
+          </div>
+          <div className="center">
+            <Link className='link' to="/">Lome</Link>
+          </div>
 
-        <div className="item">
-          <Link className='link' to="/">About</Link>
-        </div>
+          <div className="right">
 
-        <div className="item">
-          <Link className='link' to="/">Contact</Link>
-        </div>
+          <div className="item">
+            <Link className='link' to="/">About</Link>
+          </div>
 
-        <div className="item">
-          <Link className='link' to="/">Stores</Link>
-        </div>
+          <div className="item">
+            <Link className='link' to="/">Contact</Link>
+          </div>
 
-        <div className="icons">
-          <SearchOutlinedIcon/>
-          <Link className='link' to='/signUp'>
-              <PersonOutlineOutlinedIcon />
-          </Link>
-          <FavoriteBorderOutlinedIcon/>
-          <div className="cartIcon" onClick={()=>setOpen(!open)}>
-            <ShoppingCartOutlinedIcon/>
-            <span>0</span>
+          <div className="item">
+            <Link className='link' to="/">Stores</Link>
+          </div>
+
+          <div className="icons">
+            <SearchOutlinedIcon/>
+            <Link className='link' to='/signUp'>
+                <PersonOutlineOutlinedIcon />
+            </Link>
+            <FavoriteBorderOutlinedIcon/>
+            <div className="cartIcon" onClick={()=>setOpen(!open)}>
+              <ShoppingCartOutlinedIcon/>
+              <span>0</span>
+            </div>
+          </div>
           </div>
         </div>
-        </div>
+        {open && <Cart/>}
       </div>
-      {open && <Cart/>}
-    </div>
-  )
+    )
 }
 
 export default Navbar;
