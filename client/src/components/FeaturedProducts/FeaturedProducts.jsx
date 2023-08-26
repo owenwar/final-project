@@ -47,11 +47,7 @@ const FeaturedProducts = ({type}) => {
             <h1>{type} products </h1>
 
             <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
-            suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
-            lacus vel facilisis labore et dolore magna aliqua. Quis ipsum
-            suspendisse ultrices gravida. Risus commodo viverra maecenas.
+                A glimpse into the pulse of urban culture. Our Featured Products are often available for a limited time or in limited quantities. This ensures that your style remains exclusive and true to your own identity. Don't miss out on the opportunity to grab these unique pieces before they become urban legends.
             </p>
         </div>
 
