@@ -4,7 +4,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {Link} from "react-router-dom";
-import "../Cart/Cart";
+import Cart from '../Cart/Cart';
 import "./Navbar.scss";
 
 const Navbar = () => {
@@ -53,7 +53,7 @@ const Navbar = () => {
         </div>
         </div>
       </div>
-      {/* {open && <Cart/>} */}
+      {open && <Cart/>}
     </div>
   )
 }
