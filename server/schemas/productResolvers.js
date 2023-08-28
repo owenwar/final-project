@@ -11,7 +11,13 @@ const productResolvers = {
         async productsByGender(_, { gender }) {
             return await Product.find({ gender });
         }
+    },
+    Mutation: {
+        async addProduct(_, { type, name, description, price, imageUrl }) {
+            return await Product.create({ type, name, description, price, imageUrl });
+        }
     }
 };
+
 
 module.exports = productResolvers;

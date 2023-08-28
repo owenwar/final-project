@@ -51,7 +51,7 @@ export const ADD_PRODUCT = async (image, type, name, description, price) => {
         formData.append('image', image);
 
         try {
-            const response = await axios.post('/api/admin/upload', formData);
+            const response = await axios.post('http://localhost:3001/api/admin/upload', formData); // Assuming you have an /upload endpoint set up
             imageUrl = response.data.Location; // Adjust this based on your server's response structure
         } catch (error) {
             console.error("Error uploading image:", error);

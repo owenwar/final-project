@@ -53,6 +53,8 @@ const typeDefs = gql`
         addToFavorites(productId: ID!): [Product]
         removeFromFavorites(productId: ID!): [Product]
         createOrder(stripeToken: String!): Order
+        addProduct(type: String!, name: String!, description: String!, price: Float!, imageUrl: String!): Product!
+
     }
 
     type AuthData {
