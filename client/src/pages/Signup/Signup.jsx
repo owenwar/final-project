@@ -18,7 +18,7 @@ function Signup() {
       event.preventDefault();
       setLoading(true);
       try {
-        const response = await axios.post('http://localhost:3001/graphql', {
+        const response = await axios.post(ADD_USER, {
           query: ADD_USER,
           variables: {
             username: formState.username,
