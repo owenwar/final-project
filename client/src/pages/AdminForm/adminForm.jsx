@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { ADD_PRODUCT } from '../../utils/mutations';
-import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 
 const AdminForm = () => {
@@ -50,38 +49,33 @@ const AdminForm = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        if (image) {
-            const formData = new FormData();
-            formData.append('image', image);
-
-            try {
-                const response = await axios.post('/upload', formData);
-                formState.imageUrl = response.data.Location;
-            } catch (error) {
-                console.error("Error uploading image:", error);
-            }
-        }
-
         try {
-            await axios.post('/graphql', {
-                query: ADD_PRODUCT,
-                variables: { ...formState }
-            });
-            alert('Product added successfully!');
-            setFormState({
-                name: '',
-                description: '',
-                price: '',
-                onSale: false,
-                imageUrl: '',
-                category: '',
-                colorTag: '',
-                gender: 'male'
-            });
+            const result = await ADD_PRODUCT(
+                image,
+                formState.category,
+                formState.name,
+                formState.description,
+                parseFloat(formState.price) // Convert the price string to a number
+            );
+            if (result && result.id) {
+                alert('Product added successfully!');
+                setFormState({
+                    name: '',
+                    description: '',
+                    price: '',
+                    onSale: false,
+                    imageUrl: '',
+                    category: '',
+                    colorTag: '',
+                    gender: 'male'
+                });
+            } else {
+                throw new Error('Failed to add product');
+            }
         } catch (err) {
             console.error(err);
             alert('Error adding product. Please try again.');
-        }
+        }        
     };
 
     return (
