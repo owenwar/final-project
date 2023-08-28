@@ -55,7 +55,8 @@ const AdminForm = () => {
                 formState.category,
                 formState.name,
                 formState.description,
-                parseFloat(formState.price) // Convert the price string to a number
+                parseFloat(formState.price),
+                formState.gender
             );
             if (result && result.id) {
                 alert('Product added successfully!');

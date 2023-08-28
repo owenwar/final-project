@@ -10,8 +10,8 @@ const productResolvers = {
         }
     },
     Mutation: {
-        async addProduct(_, { type, name, description, price, imageUrl }) {
-            return await Product.create({ type, name, description, price, imageUrl });
+        async addProduct(_, { type, name, description, price, imageUrl, gender }) {
+            return await Product.create({ type, name, description, price, imageUrl, gender });
         }
     }
 };

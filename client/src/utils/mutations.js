@@ -43,7 +43,7 @@ export const LOGIN_USER = async (email, password) => {
     }
 };
 
-export const ADD_PRODUCT = async (image, type, name, description, price) => {
+export const ADD_PRODUCT = async (image, type, name, description, price, gender) => {
     // First, handle the image upload
     let imageUrl = '';
     if (image) {
@@ -51,18 +51,18 @@ export const ADD_PRODUCT = async (image, type, name, description, price) => {
         formData.append('image', image);
 
         try {
-            const response = await axios.post('http://localhost:3001/api/admin/upload', formData); // Assuming you have an /upload endpoint set up
+            const response = await axios.post('http://localhost:3001/api/admin/upload', formData);
             imageUrl = response.data.Location; // Adjust this based on your server's response structure
         } catch (error) {
             console.error("Error uploading image:", error);
-            return;
+            throw new Error('Image upload failed');
         }
     }
 
     // Then, send the GraphQL mutation
     const query = `
         mutation {
-            addProduct(type: "${type}", name: "${name}", description: "${description}", price: ${price}, imageUrl: "${imageUrl}") {
+            addProduct(type: "${type}", name: "${name}", description: "${description}", price: ${price}, imageUrl: "${imageUrl}", gender: "${gender}") {
                 id
                 name
             }
@@ -71,8 +71,13 @@ export const ADD_PRODUCT = async (image, type, name, description, price) => {
 
     try {
         const response = await axios.post(GRAPHQL_ENDPOINT, { query });
+        if (!response.data.data || !response.data.data.addProduct) {
+            throw new Error('GraphQL mutation failed');
+        }
         return response.data.data.addProduct;
     } catch (error) {
         console.error("Error adding product:", error);
+        throw new Error('Product addition failed');
     }
 };
+
