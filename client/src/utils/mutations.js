@@ -52,7 +52,7 @@ export const ADD_PRODUCT = async (image, type, name, description, price, gender)
 
         try {
             const response = await axios.post('http://localhost:3001/api/admin/upload', formData);
-            imageUrl = response.data.Location; // Adjust this based on your server's response structure
+            imageUrl = response.data.imageUrl; 
         } catch (error) {
             console.error("Error uploading image:", error);
             throw new Error('Image upload failed');
