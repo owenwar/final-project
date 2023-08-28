@@ -7,6 +7,8 @@ export const ADD_USER = gql`
             user {
                 _id
                 username
+                email
+                password
             }
         }
     }
@@ -23,8 +25,20 @@ export const LOGIN_USER = gql`
             }
         }
     }
-
 `;
+
+export const SIGNUP_USER = gql`
+  mutation addUser($name: String!, $email: String!, $password: String!) {
+    addUser(name: $name, email: $email, password: $password) {
+      token
+      User {
+        _id
+        name
+      }
+    }
+  }
+`;
+
 
 export const ADD_PRODUCT = gql`
   mutation AddProduct($image: Upload!, $type: String!, $name: String!, $description: String!, $price: Float!) {

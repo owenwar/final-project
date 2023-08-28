@@ -1,37 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Signup.scss';
 import Auth from '../../utils/auth';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
+import { ADD_USER } from '../../utils/mutations';
 
 function Signup() {
-  const [formState, setFormState] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post('/api/signup', formState); // Send POST request using Axios
-
-      if (response.status === 200) {
-        Auth.login(response.data.token);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormState({
-      ...formState,
-      [name]: value,
+    const [formState, setFormState] = useState({
+      username: '',
+      email: '',
+      password: '',
     });
-  };
+  
+    const [loading, setLoading] = useState(false);
+  
+    const handleFormSubmit = async (event) => {
+      event.preventDefault();
+      setLoading(true);
+      try {
+        const response = await axios.post('http://localhost:3001/graphql', {
+          query: ADD_USER,
+          variables: {
+            username: formState.username,
+            email: formState.email,
+            password: formState.password,
+          },
+        });
+  
+        if (response.status === 200 && response.data.data.addUser.token) {
+          Auth.login(response.data.data.addUser.token);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+  
+      setFormState({
+        ...formState,
+        [name]: value,
+      });
+    };
   
     return (
         <div className="signup">
@@ -41,26 +54,6 @@ function Signup() {
                 </div>
                 <div className="form">
                     <form onSubmit={handleFormSubmit}>
-                        <div className="firstname">
-                            <label htmlFor="firstName">First Name</label>
-                            <input
-                                placeholder="Your first name"
-                                name="firstName"
-                                type="firstName"
-                                id="firstName"
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="lastname">
-                            <label htmlFor="lastName">Last Name</label>
-                            <input
-                                placeholder="Your last name"
-                                name="lastName"
-                                type="lastName"
-                                id="lastName"
-                                onChange={handleChange}
-                            />
-                        </div>
                         <div className="username">
                             <label htmlFor="username">Username</label>
                             <input
