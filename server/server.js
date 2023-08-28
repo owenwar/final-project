@@ -4,13 +4,17 @@ const path = require('path');
 const db = require('./config/db');
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./middleware/auth');
+const adminAuth = require('./middleware/adminAuth');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// Apollo Server setup
+// Body parsers
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+
 const startServer = async () => {
-  // Apollo Server setup
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -20,14 +24,14 @@ const startServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
 
-  console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`); // <-- Move this line here
+  console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
 };
 
 startServer();
-app.use('/api', require('./routes/api'));
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+// Routes
+app.use(require('./routes'));
+app.use('/api/admin', adminAuth, require('./routes/api/adminRoute'));
 
 // Serve up static assets
 if (process.env.NODE_ENV === 'production') {

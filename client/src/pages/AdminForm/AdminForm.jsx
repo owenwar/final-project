@@ -16,6 +16,8 @@ const AdminForm = () => {
     });
 
     const [image, setImage] = useState(null);
+    const [uploadSuccess, setUploadSuccess] = useState(false); // State for upload confirmation
+    const [imagePreview, setImagePreview] = useState(null); // State for image preview
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -35,34 +37,31 @@ const AdminForm = () => {
 
     const onDrop = useCallback((acceptedFiles) => {
         setImage(acceptedFiles[0]);
+        setImagePreview(URL.createObjectURL(acceptedFiles[0]));
+        setUploadSuccess(true);
     }, []);
+
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
         accept: 'image/*',
         multiple: false
     });
 
-    const handleImageChange = (event) => {
-        setImage(event.target.files[0]);
-    };
-
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        // First, upload the image to S3 and get the URL
         if (image) {
             const formData = new FormData();
             formData.append('image', image);
 
             try {
                 const response = await axios.post('/upload', formData);
-                formState.imageUrl = response.data.Location; // Assuming the returned data object has a Location property with the image URL
+                formState.imageUrl = response.data.Location;
             } catch (error) {
                 console.error("Error uploading image:", error);
             }
         }
 
-        // Then, use the formState to add the product, including the imageUrl from S3
         try {
             await axios.post('/graphql', {
                 query: ADD_PRODUCT,
@@ -84,7 +83,6 @@ const AdminForm = () => {
             alert('Error adding product. Please try again.');
         }
     };
-
 
     return (
         <div className="admin-form-container">
@@ -128,6 +126,12 @@ const AdminForm = () => {
                         <input {...getInputProps()} />
                         <p>Drag & drop an image here, or click to select one</p>
                     </div>
+                    {imagePreview && (
+                        <div className="image-preview">
+                            <img src={imagePreview} alt="Preview" width="100" />
+                        </div>
+                    )}
+                    {uploadSuccess && <p>Image uploaded successfully!</p>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="category">Category:</label>
