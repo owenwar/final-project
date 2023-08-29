@@ -1,13 +1,13 @@
 import axios from "axios";
-
 const GRAPHQL_ENDPOINT = "http://localhost:3001/graphql";
-export const ADD_USER = async (username, email, password) => {
+
+export const REGISTER_USER = async (username, email, password) => {
   const query = `
         mutation {
-            addUser(username: "${username}", email: "${email}", password: "${password}") {
+            register(username: "${username}", email: "${email}", password: "${password}") {
                 token
                 user {
-                    _id
+                    id
                     username
                 }
             }
@@ -16,9 +16,9 @@ export const ADD_USER = async (username, email, password) => {
 
   try {
     const response = await axios.post(GRAPHQL_ENDPOINT, { query });
-    return response.data.data.addUser;
+    return response.data.data.register;
   } catch (error) {
-    console.error("Error adding user:", error);
+    console.error("Error registering user:", error);
   }
 };
 
@@ -28,7 +28,7 @@ export const LOGIN_USER = async (email, password) => {
             login(email: "${email}", password: "${password}") {
                 token
                 user {
-                    _id
+                    id
                     username
                 }
             }

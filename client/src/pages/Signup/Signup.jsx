@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Signup.scss';
+import { REGISTER_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import axios from 'axios'; // Import Axios
+
 
 function Signup() {
   const [formState, setFormState] = useState({
@@ -13,16 +14,14 @@ function Signup() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.post('/api/signup', formState); // Send POST request using Axios
 
-      if (response.status === 200) {
-        Auth.login(response.data.token);
-      }
+    try {
+        const { data } = await REGISTER_USER(formState.username, formState.email, formState.password);
+        Auth.login(data.addUser.token); 
     } catch (error) {
-      console.error(error);
+        console.error('Error signing up:', error);
     }
-  };
+};
 
   const handleChange = (event) => {
     const { name, value } = event.target;
