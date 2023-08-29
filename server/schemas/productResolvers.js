@@ -10,9 +10,22 @@ const productResolvers = {
         }
     },
     Mutation: {
-        async addProduct(_, { type, name, description, price, imageUrl, gender }) {
-            return await Product.create({ type, name, description, price, imageUrl, gender });
-        }
+        async addProduct(_, { name, description, price, onSale, imageUrl, category, colorTag, gender, createdAt }) {
+            return await Product.create({
+              name,
+              description,
+              price,
+              onSale,
+              imageUrl,
+              category,
+              colorTag,
+              gender,
+              createdAt,
+            });
+          },
+          async deleteProduct(_, { id }) {
+            return await Product.findByIdAndDelete(id);
+          },
     }
 };
 
