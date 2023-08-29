@@ -1,50 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Signup.scss';
 import Auth from '../../utils/auth';
-import axios from 'axios';
 import { ADD_USER } from '../../utils/mutations';
 
 function Signup() {
-    const [formState, setFormState] = useState({
-      username: '',
-      email: '',
-      password: '',
-    });
-  
-    const [loading, setLoading] = useState(false);
-  
-    const handleFormSubmit = async (event) => {
-      event.preventDefault();
-      setLoading(true);
-      try {
-        const response = await axios.post(ADD_USER, {
-          query: ADD_USER,
-          variables: {
-            username: formState.username,
-            email: formState.email,
-            password: formState.password,
-          },
-        });
-  
-        if (response.status === 200 && response.data.data.addUser.token) {
-          Auth.login(response.data.data.addUser.token);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      const response = await ADD_USER(
+        formState.username,
+        formState.email,
+        formState.password
+      );
+
+      if (response && response.token) {
+        Auth.login(response.token);
       }
-    };
-  
-    const handleChange = (event) => {
-      const { name, value } = event.target;
-  
-      setFormState({
-        ...formState,
-        [name]: value,
-      });
-    };
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
   
     return (
         <div className="signup">

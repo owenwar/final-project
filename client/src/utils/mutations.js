@@ -9,6 +9,8 @@ export const ADD_USER = async (username, email, password) => {
                 user {
                     _id
                     username
+                    email
+                    password
                 }
             }
         }
