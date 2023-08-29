@@ -3,13 +3,21 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate } from "react-router-dom";
 import Cart from '../Cart/Cart';
 import "./Navbar.scss";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const [selectedGender, setSelectedGender] = useState('male');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleGenderChange = (gender) => {
+    setSelectedGender(gender);
+    const newPath = location.pathname.replace(/\/(male|female)/, `/${gender}`);
+    navigate(newPath); // Use navigate to update the route
+  };
 
     return (
       <div className='navbar'>
@@ -18,12 +26,23 @@ const Navbar = () => {
           <div className="left">
 
           <div className="item">
-            <Link className='link' to="/products/male" onClick={() => setSelectedGender('male')}>Menswear</Link>
-            
+            <Link
+              className={`link ${selectedGender === 'male' ? 'active' : ''}`}
+              to="/products/male"
+              onClick={() => handleGenderChange('male')}
+            >
+              Menswear
+            </Link>
           </div>
 
           <div className="item">
-            <Link className='link' to="/products/female" onClick={() => setSelectedGender('female')}>Womenswear</Link>
+            <Link
+              className={`link ${selectedGender === 'female' ? 'active' : ''}`}
+              to="/products/female"
+              onClick={() => handleGenderChange('female')}
+            >
+              Womenswear
+            </Link>
           </div>
 
           </div>
