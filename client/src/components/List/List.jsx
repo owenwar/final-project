@@ -1,4 +1,4 @@
-import "./List.scss";
+import "./List.scss"
 import Card from '../Card/Card';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -9,7 +9,7 @@ const List = ({ gender }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/products/${gender}`) // Use gender prop in the API request
+    axios.get(`/api/products/${gender}`, { params: { gender } }) // Use gender prop in the API request
       .then(response => {
         setProducts(response.data);
         setLoading(false);

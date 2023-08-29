@@ -1,31 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import "./Products.scss";
+import "./Products.scss"
 import List from "../../components/List/List";
 
-const filterAndSortProducts = (products, gender, catId) => {
-  let filteredProducts = products.filter(
-    (product) => product.gender === gender && product.catId === catId
-  );
+const Products = () => {
 
-  return filteredProducts;
-};
+    const [gender, setGender] = useState('male'); 
+    const catId = parseInt(useParams().id)
+    const [maxPrice,setMaxPrice] = useState(1000)
+    const [sort, setSort] = useState(null)
 
-const Products = ({ products }) => {
-  const { gender } = useParams(); // Use the 'gender' parameter directly
-  const catId = parseInt(useParams().id);
-  const [maxPrice, setMaxPrice] = useState(1000);
-  const [sort, setSort] = useState(null);
-
-  const filteredAndSortedProducts = filterAndSortProducts(
-    products,
-    gender,
-    catId
-  );
-
-  return (
-    <div className="products">
+    return (
+        <div className="products">
             <div className="left">
                 <div className="filterItem">
                     <h2>Product Categories</h2>
@@ -40,6 +27,7 @@ const Products = ({ products }) => {
                     <div className="inputItem">
                         <span>0</span>
                         <input type="range" min={0} max={1000} onChange={(e)=>setMaxPrice(e.target.value)}/>
+                        <span>{maxPrice}</span>
                     </div>
                 </div>
 
@@ -60,10 +48,10 @@ const Products = ({ products }) => {
                 <img className="catImg" 
                 src="https://cdn.discordapp.com/attachments/892058013098184734/1131690360192630785/IMG_6899.jpg" 
                 alt="" />
-                <List products={filteredAndSortedProducts} gender={gender}/>
+                <List gender={gender} catId={catId} maxPrice={maxPrice} sort={sort}/>
             </div>
         </div>
-  );
-};
+    )
+}
 
 export default Products;

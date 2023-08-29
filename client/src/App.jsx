@@ -11,7 +11,6 @@ import Products from "./pages/Products/Products";
 import AdminForm from "./pages/AdminForm/AdminForm";
 import Signup from "./pages/Signup/Signup";
 import "./app.scss"
-
 const Layout = () => {
   return (
     <div className="app">
@@ -21,13 +20,6 @@ const Layout = () => {
     </div>
   )
 }
-
-const productData = [
-  // Example product data with gender property
-  { id: 1, name: 'Product 1', description: 'Description 1', gender: 'male' },
-  { id: 2, name: 'Product 2', description: 'Description 2', gender: 'female' },
-  // ...other products
-];
 
 const router = createBrowserRouter([
   {
@@ -39,8 +31,8 @@ const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path: '/products/:gender',
-        element: <Products products={productData} />,
+        path:"/products",
+        element: <Products/>
       },
       {
         path:"/product/:id",
