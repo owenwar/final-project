@@ -5,9 +5,13 @@ const db = require('./config/db');
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./middleware/auth');
 const adminAuth = require('./middleware/adminAuth');
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+// Use the cors middleware
+app.use(cors());
 
 // Body parsers
 app.use(express.urlencoded({ extended: false }));
