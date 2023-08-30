@@ -3,8 +3,8 @@ const GRAPHQL_ENDPOINT = "http://localhost:3001/graphql";
 
 export const REGISTER_USER = async (username, email, password) => {
   const query = `
-        mutation {
-            register(username: "${username}", email: "${email}", password: "${password}") {
+        mutation RegisterUser($username: String!, $email: String!, $password: String!) {
+            register(username: $username, email: $email, password: $password) {
                 token
                 user {
                     id
@@ -15,7 +15,10 @@ export const REGISTER_USER = async (username, email, password) => {
     `;
 
   try {
-    const response = await axios.post(GRAPHQL_ENDPOINT, { query });
+    const response = await axios.post(GRAPHQL_ENDPOINT, {
+      query,
+      variables: { username, email, password }
+    });
     return response.data.data.register;
   } catch (error) {
     console.error("Error registering user:", error);
@@ -24,8 +27,8 @@ export const REGISTER_USER = async (username, email, password) => {
 
 export const LOGIN_USER = async (email, password) => {
   const query = `
-        mutation {
-            login(email: "${email}", password: "${password}") {
+        mutation LoginUser($email: String!, $password: String!) {
+            login(email: $email, password: $password) {
                 token
                 user {
                     id
@@ -36,10 +39,13 @@ export const LOGIN_USER = async (email, password) => {
     `;
 
   try {
-    const response = await axios.post(GRAPHQL_ENDPOINT, { query });
-    return response.data.data.login;
+    const response = await axios.post(GRAPHQL_ENDPOINT, {
+      query,
+      variables: { email, password }
+    });
+    return response.data.data.login.token;
   } catch (error) {
-    console.error("Error logging in:", error);
+    console.error("Error logging in user:", error);
   }
 };
 

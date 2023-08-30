@@ -18,19 +18,3 @@ export const GET_USER_BY_ID = async (userId) => {
     console.error("Error getting user by id:", error);
   }
 }
-
-export const GET_PRODUCTS_BY_GENDER = gql`
-  query getProductsByGender($gender: String!) {
-    productsByGender(gender: $gender) {
-      name
-      description
-      price
-      onSale
-      imageUrl
-      category
-      colorTag
-      createdAt
-      updatedAt
-    }
-  }
-  `;
