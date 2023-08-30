@@ -4,7 +4,7 @@
     "description": "Description of Product 1",
     "price": 120,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "shirt",
     "colorTag": "black",
     "gender": "male"
@@ -14,7 +14,7 @@
     "description": "Description of Product 2",
     "price": 180,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "pants",
     "colorTag": "blue",
     "gender": "male"
@@ -24,7 +24,7 @@
     "description": "Description of Product 2",
     "price": 80,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "shirt",
     "colorTag": "blue",
     "gender": "male"
@@ -34,7 +34,7 @@
     "description": "Description of Product 3",
     "price": 190,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "shirt",
     "colorTag": "red",
     "gender": "male"
@@ -44,7 +44,7 @@
     "description": "Description of Product 4",
     "price": 100,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "accesories",
     "colorTag": "pink",
     "gender": "female"
@@ -54,7 +54,7 @@
     "description": "Description of Product 5",
     "price": 100,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "pants",
     "colorTag": "blue",
     "gender": "female"
@@ -64,7 +64,7 @@
     "description": "Description of Product 5",
     "price": 100,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "pants",
     "colorTag": "blue",
     "gender": "male"
@@ -74,7 +74,7 @@
     "description": "Description of Product 5",
     "price": 100,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "pants",
     "colorTag": "blue",
     "gender": "male"
@@ -84,7 +84,7 @@
     "description": "Description of Product 6",
     "price": 100,
     "onSale": true,
-    "imageUrl": "image-url-1",
+    "imageUrl": "../../client/assets/images/1603388304_113S06A4022_X0890_E01_GHC.avif",
     "category": "shits",
     "colorTag": "pink",
     "gender": "female"
