@@ -11,6 +11,7 @@ import MaleProducts from "./pages/Products/MaleProducts";
 import FemaleProducts from "./pages/Products/FemaleProducts";
 import AdminForm from "./pages/AdminForm/AdminForm";
 import Signup from "./pages/Signup/Signup";
+import Login from "./pages/Login/Login";
 import "./app.scss"
 const Layout = () => {
   return (
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/signUp",
         element: <Signup/>
+      },
+      {
+        path: "/login",
+        element: <Login/>
       },
     ]
   },

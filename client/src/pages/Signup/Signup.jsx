@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Signup.scss';
+import { REGISTER_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { ADD_USER } from '../../utils/mutations';
 
@@ -31,7 +32,7 @@ function Signup() {
     } finally {
       setLoading(false);
     }
-  };
+};
 
   const handleChange = (event) => {
     const { name, value } = event.target;

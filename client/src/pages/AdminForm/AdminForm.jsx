@@ -72,6 +72,9 @@ const AdminForm = () => {
           colorTag: "",
           gender: "male",
         });
+        setImage(null);
+        setImagePreview(null);
+        
       } else {
         throw new Error("Failed to add product");
       }

@@ -1,6 +1,11 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  type AuthData {
+    token: String!
+    user: User!
+  }
+
   type User {
     id: ID!
     username: String!
@@ -67,11 +72,6 @@ const typeDefs = gql`
       gender: String!
     ): Product!
     deleteProduct(id: ID!): Product!
-  }
-
-  type AuthData {
-    token: String!
-    user: User!
   }
 `;
 
