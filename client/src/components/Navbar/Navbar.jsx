@@ -9,58 +9,66 @@ import Search from '../Search/search';
 import "./Navbar.scss";
 
 const Navbar = () => {
- const [openCart, setOpenCart] = useState(false);
-  const [openSearch, setOpenSearch] = useState(false);
+ const [open, setOpen] = useState(false)
   return (
     <div className='navbar'>
       <div className="wrapper"> 
 
-        <div className="left">
+          <div className="left">
 
-        <div className="item">
-          <Link className='link' to="/products/male">Menswear</Link>
-        </div>
+          <div className="item">
+            <Link
+              // className={`link ${selectedGender === 'male' ? 'active' : ''}`}
+              to="/maleproducts" // Pass the gender as a parameter in the URL
+              // onClick={() => setSelectedGender('male')}
+            >
+              Menswear
+            </Link>
+          </div>
 
-        <div className="item">
-          <Link className='link' to="/products/female">Womenswear</Link>
-        </div>
+          <div className="item">
+            <Link
+              // className={`link ${selectedGender === 'female' ? 'active' : ''}`}
+              to="/femaleproducts" // Pass the gender as a parameter in the URL
+              // onClick={() => setSelectedGender('female')}
+            >
+              Womenswear
+            </Link>
+          </div>
 
-        </div>
-        <div className="center">
-          <Link className='link' to="/">Lome</Link>
-        </div>
+          </div>
+          <div className="center">
+            <Link className='link' to="/">Lome</Link>
+          </div>
 
-        <div className="right">
+          <div className="right">
 
-        <div className="item">
-          <Link className='link' to="/">About</Link>
-        </div>
+          <div className="item">
+            <Link className='link' to="/">About</Link>
+          </div>
 
-        <div className="item">
-          <Link className='link' to="/">Contact</Link>
-        </div>
+          <div className="item">
+            <Link className='link' to="/">Contact</Link>
+          </div>
 
-        <div className="item">
-          <Link className='link' to="/">Stores</Link>
-        </div>
+          <div className="item">
+            <Link className='link' to="/">Stores</Link>
+          </div>
 
         <div className="icons">
-          <Link className='link' to="/search" onClick={()=>setOpenSearch(!openSearch)}>
           <SearchOutlinedIcon/>
-          </Link>
           <Link className='link' to='/signUp'>
               <PersonOutlineOutlinedIcon />
           </Link>
           <FavoriteBorderOutlinedIcon/>
-          <div className="cartIcon" onClick={()=>setOpenCart(!openCart)}>
+          <div className="cartIcon" onClick={()=>setOpen(!open)}>
             <ShoppingCartOutlinedIcon/>
             <span>0</span>
           </div>
         </div>
         </div>
       </div>
-      {openCart && <Cart/>}
-      {openSearch && <Search/>}
+      {open && <Cart/>}
     </div>
   )
 }

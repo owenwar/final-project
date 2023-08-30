@@ -1,63 +1,82 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-    type User {
-        id: ID!
-        username: String!
-        email: String!
-        password: String!
-        cart: [CartItem]
-        favorites: [Product]
-    }
+  type AuthData {
+    token: String!
+    user: User!
+  }
 
-    type CartItem {
-        product: Product!
-        quantity: Int!
-    }
+  type User {
+    id: ID!
+    username: String!
+    email: String!
+    password: String!
+    cart: [CartItem]
+    favorites: [Product]
+  }
 
-    type Product {
-        id: ID!
-        imageUrl: String!
-        name: String!
-        description: String!
-        price: Float!
-        gender: String!
-        
-    }
+  type CartItem {
+    product: Product!
+    quantity: Int!
+  }
 
-    type Order {
-        id: ID!
-        user: User!
-        products: [CartItem]!
-        totalAmount: Float!
-        stripeChargeId: String!
-    }
+  type Product {
+    id: ID!
 
-    type Query {
-        user: User
-        products: [Product]
-        product(id: ID!): Product
-        cart: [CartItem]
-        favorites: [Product]
-    }
+    name: String!
+    description: String!
+    price: Float!
+    onSale: Boolean!
+    imageUrl: String!
+    category: String!
+    colorTag: String!
+    createdAt: String!
+    gender: String!
+  }
 
-    type Mutation {
-        register(username: String!, email: String!, password: String!): AuthData!
-        login(email: String!, password: String!): AuthData!
-        addToCart(productId: ID!, quantity: Int!): [CartItem]
-        removeFromCart(productId: ID!): [CartItem]
-        updateCartQuantity(productId: ID!, quantity: Int!): [CartItem]
-        addToFavorites(productId: ID!): [Product]
-        removeFromFavorites(productId: ID!): [Product]
-        createOrder(stripeToken: String!): Order
-        addProduct(type: String!, name: String!, description: String!, price: Float!, imageUrl: String!, gender: String!): Product!
+  type Order {
+    id: ID!
+    user: User!
+    products: [CartItem]!
+    totalAmount: Float!
+    stripeChargeId: String!
+  }
 
-    }
+  type Query {
+    users: [User]
+    user(id: ID!): User
+    products: [Product]
+    productsByGender(gender: String!): [Product]
+    product(id: ID!): Product
+    cart: [CartItem]
+    favorites: [Product]
+  }
 
-    type AuthData {
-        token: String!
-        user: User!
-    }
+  type Mutation {
+    register(username: String!, email: String!, password: String!): AuthData!
+    login(email: String!, password: String!): AuthData!
+    editUser(id: ID!, username: String, email: String): User!
+    deleteUser(id: ID!): User!
+    addToCart(productId: ID!, quantity: Int!): [CartItem]
+    removeFromCart(productId: ID!): [CartItem]
+    updateCartQuantity(productId: ID!, quantity: Int!): [CartItem]
+    addToFavorites(productId: ID!): [Product]
+    removeFromFavorites(productId: ID!): [Product]
+    createOrder(stripeToken: String!): Order
+    addProduct(
+      name: String!
+      description: String!
+      price: Float!
+      onSale: Boolean!
+      imageUrl: String!
+      category: String!
+      colorTag: String!
+      createdAt: String!
+      gender: String!
+    ): Product!
+    editProduct(id: ID!, name: String, description: String, price: Float): Product!
+    deleteProduct(id: ID!): Product!
+  }
 `;
 
 module.exports = typeDefs;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Signup.scss';
+import { REGISTER_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import axios from 'axios'; // Import Axios
+
 
 function Signup() {
   const [formState, setFormState] = useState({
@@ -13,17 +14,20 @@ function Signup() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
     try {
-      const response = await axios.post('/api/signup', formState); // Send POST request using Axios
+        const { data } = await REGISTER_USER(formState.username, formState.email, formState.password);
+        
+        if (data.errors) {
+            console.error('Error signing up:', data.errors[0].message);
+            return;
+        }
 
-      if (response.status === 200) {
-        Auth.login(response.data.token);
-      }
+        Auth.login(data.token);
     } catch (error) {
-      console.error(error);
+        console.error(error.message);
     }
-  };
-
+};
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -37,7 +41,7 @@ function Signup() {
         <div className="signup">
             <div className="wrapper">
                 <div className="title">
-                    <h1>Sign Up</h1>
+                    <h2>Sign Up</h2>
                 </div>
                 <div className="form">
                     <form onSubmit={handleFormSubmit}>
@@ -91,7 +95,7 @@ function Signup() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="submit">
+                        <div className="button-class">
                             <button type="submit">Sign Up</button>
                         </div>
                         <div className="link">

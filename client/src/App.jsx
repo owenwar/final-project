@@ -7,10 +7,15 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
-import Products from "./pages/Products/Products";
+import MaleProducts from "./pages/Products/MaleProducts";
+import FemaleProducts from "./pages/Products/FemaleProducts";
 import AdminForm from "./pages/AdminForm/AdminForm";
 import Signup from "./pages/Signup/Signup";
+<<<<<<< HEAD
 import Search from "./components/Search/search";
+=======
+import Login from "./pages/Login/Login";
+>>>>>>> main
 import "./app.scss"
 const Layout = () => {
   return (
@@ -32,8 +37,12 @@ const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path:"/products/:gender",
-        element: <Products/>
+        path:"/maleproducts",
+        element: <MaleProducts/>
+      },
+      {
+        path:"/femaleproducts",
+        element: <FemaleProducts/>
       },
       {
         path:"/product/:id",
@@ -48,8 +57,13 @@ const router = createBrowserRouter([
         element: <Signup/>
       },
       {
+<<<<<<< HEAD
         path: "/search",
         element: <Search/>
+=======
+        path: "/login",
+        element: <Login/>
+>>>>>>> main
       },
     ]
   },

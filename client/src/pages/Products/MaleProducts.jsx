@@ -1,17 +1,30 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Products.scss"
-import List from "../../components/List/List";
+import { GET_PRODUCTS_BY_GENDER } from "../../utils/queries";
 
-const Products = () => {
+const MaleProducts = () => {
 
-    const { id: gender } = useParams(); 
     const catId = parseInt(useParams().id)
     const [maxPrice,setMaxPrice] = useState(1000)
     const [sort, setSort] = useState(null)
+    const [products, setProducts] = useState([]);
     
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const fetchedProducts = await GET_PRODUCTS_BY_GENDER('male');
+                console.log(fetchedProducts)
+                setProducts(fetchedProducts);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
 
+        fetchProducts();
+    }, []);
+    
 
     return (
         <div className="products">
@@ -50,10 +63,18 @@ const Products = () => {
                 <img className="catImg" 
                 src="https://cdn.discordapp.com/attachments/892058013098184734/1131690360192630785/IMG_6899.jpg" 
                 alt="" />
-                <List catId={catId} maxPrice={maxPrice} sort={sort}/>
+                {products.map(product => (
+                <div key={product.id}>
+                    <h2>{product.name}</h2>
+                    <p>{product.description}</p>
+                    <p>Price: ${product.price}</p>
+                    <img src={product.imageUrl} alt={product.name} />
+                </div>
+            ))}
+                {/* <List gender={gender} catId={catId} maxPrice={maxPrice} sort={sort}/> */}
             </div>
         </div>
     )
 }
 
-export default Products;
+export default MaleProducts;
