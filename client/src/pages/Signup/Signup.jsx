@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Signup.scss';
 import { REGISTER_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { ADD_USER } from '../../utils/mutations';
+
 
 function Signup() {
   const [formState, setFormState] = useState({
@@ -12,25 +12,14 @@ function Signup() {
     password: '',
   });
 
-  const [loading, setLoading] = useState(false);
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    try {
-      const response = await ADD_USER(
-        formState.username,
-        formState.email,
-        formState.password
-      );
 
-      if (response && response.token) {
-        Auth.login(response.token);
-      }
+    try {
+        const { data } = await REGISTER_USER(formState.username, formState.email, formState.password);
+        Auth.login(data.addUser.token); 
     } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+        console.error('Error signing up:', error);
     }
 };
 
@@ -51,6 +40,26 @@ function Signup() {
                 </div>
                 <div className="form">
                     <form onSubmit={handleFormSubmit}>
+                        <div className="firstname">
+                            <label htmlFor="firstName">First Name</label>
+                            <input
+                                placeholder="Your first name"
+                                name="firstName"
+                                type="firstName"
+                                id="firstName"
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="lastname">
+                            <label htmlFor="lastName">Last Name</label>
+                            <input
+                                placeholder="Your last name"
+                                name="lastName"
+                                type="lastName"
+                                id="lastName"
+                                onChange={handleChange}
+                            />
+                        </div>
                         <div className="username">
                             <label htmlFor="username">Username</label>
                             <input
