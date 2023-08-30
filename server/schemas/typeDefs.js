@@ -40,6 +40,7 @@ const typeDefs = gql`
   type Query {
     user: User
     products: [Product]
+    productsByGender(gender: String!): [Product]
     product(id: ID!): Product
     cart: [CartItem]
     favorites: [Product]

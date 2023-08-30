@@ -1,40 +1,34 @@
-import "./List.scss"
-import Card from '../Card/Card';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { GET_PRODUCTS_BY_GENDER } from "../../utils/queries";
 
-const List = ({ gender }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const MaleProducts = () => {
+    const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    axios.get(`/api/products/${gender}`, { params: { gender } }) // Use gender prop in the API request
-      .then(response => {
-        setProducts(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        setError(error);
-        setLoading(false);
-      });
-  }, [gender]); // Include gender in the dependency array
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const fetchedProducts = await GET_PRODUCTS_BY_GENDER('male');
+                setProducts(fetchedProducts);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+        fetchProducts();
+    }, []);
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
+    return (
+        <div>
+            {products.map(product => (
+                <div key={product.id}>
+                    <h2>{product.name}</h2>
+                    <p>{product.description}</p>
+                    <p>Price: ${product.price}</p>
+                    <img src={product.imageUrl} alt={product.name} />
+                </div>
+            ))}
+        </div>
+    );
+};
 
-  return (
-    <div className='list'>
-      {products.map(item => (
-        <Card item={item} key={item.id} />  // Render each product using the Card component
-      ))}
-    </div>
-  );
-}
-
-export default List;
+export default MaleProducts;

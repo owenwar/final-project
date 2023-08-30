@@ -7,7 +7,8 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
-import Products from "./pages/Products/Products";
+import MaleProducts from "./pages/Products/MaleProducts";
+import FemaleProducts from "./pages/Products/FemaleProducts";
 import AdminForm from "./pages/AdminForm/AdminForm";
 import Signup from "./pages/Signup/Signup";
 import "./app.scss"
@@ -31,8 +32,12 @@ const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path:"/products",
-        element: <Products/>
+        path:"/maleproducts",
+        element: <MaleProducts/>
+      },
+      {
+        path:"/femaleproducts",
+        element: <FemaleProducts/>
       },
       {
         path:"/product/:id",

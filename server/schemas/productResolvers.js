@@ -8,9 +8,13 @@ const productResolvers = {
         async product(_, { id }) {
             return await Product.findById(id);
         },
-        async productsByGender(_, { gender }) {
-            return await Product.find({ gender });
-        }
+        productsByGender: async (_, { gender }) => {
+            try {
+                return await Product.find({ gender });
+            } catch (error) {
+                throw new Error(error);
+            }
+        },
     },
     Mutation: {
         async addProduct(_, { name, description, price, onSale, imageUrl, category, colorTag, gender, createdAt }) {

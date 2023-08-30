@@ -9,8 +9,7 @@ import "./Navbar.scss";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
-  const [selectedGender, setSelectedGender] = useState('male');
-
+  
     return (
       <div className='navbar'>
         <div className="wrapper"> 
@@ -19,9 +18,9 @@ const Navbar = () => {
 
           <div className="item">
             <Link
-              className={`link ${selectedGender === 'male' ? 'active' : ''}`}
-              to="/products" // Pass the gender as a parameter in the URL
-              onClick={() => setSelectedGender('male')}
+              // className={`link ${selectedGender === 'male' ? 'active' : ''}`}
+              to="/maleproducts" // Pass the gender as a parameter in the URL
+              // onClick={() => setSelectedGender('male')}
             >
               Menswear
             </Link>
@@ -29,9 +28,9 @@ const Navbar = () => {
 
           <div className="item">
             <Link
-              className={`link ${selectedGender === 'female' ? 'active' : ''}`}
-              to="/products" // Pass the gender as a parameter in the URL
-              onClick={() => setSelectedGender('female')}
+              // className={`link ${selectedGender === 'female' ? 'active' : ''}`}
+              to="/femaleproducts" // Pass the gender as a parameter in the URL
+              // onClick={() => setSelectedGender('female')}
             >
               Womenswear
             </Link>
