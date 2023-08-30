@@ -1,18 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import List from "../../components/List/List";
 import "./Products.scss"
 import { GET_PRODUCTS_BY_GENDER } from "../../utils/queries";
 
 const MaleProducts = () => {
 
-    const [gender] = useState('male'); 
     const catId = parseInt(useParams().id)
     const [maxPrice,setMaxPrice] = useState(1000)
     const [sort, setSort] = useState(null)
     const [products, setProducts] = useState([]);
-
+    
     useEffect(() => {
         const fetchProducts = async () => {
             try {
