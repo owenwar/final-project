@@ -54,7 +54,6 @@ const typeDefs = gql`
   type Mutation {
     register(username: String!, email: String!, password: String!): AuthData!
     login(email: String!, password: String!): AuthData!
-    deleteUser(id: ID!): User!
     addToCart(productId: ID!, quantity: Int!): [CartItem]
     removeFromCart(productId: ID!): [CartItem]
     updateCartQuantity(productId: ID!, quantity: Int!): [CartItem]

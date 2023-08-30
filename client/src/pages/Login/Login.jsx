@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
-import "./Login.scss";
-import { Link } from "react-router-dom";
-import Auth from "../../utils/auth";
+import React from 'react'
+import "./Login.scss"
+import {Link} from "react-router-dom";
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
+import Auth from "../../utils/auth";
+
 
 const Login = () => {
     const [formState, setFormState] = useState({ email: '', password: '' });
-
+    const [login, { error }] = useMutation(LOGIN_USER);
+  
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { data } = await LOGIN_USER(formState.email, formState.password);
-            
-            if (data.errors) {
-                console.error('Error logging in:', data.errors[0].message);
-                return;
-            }
-
-            Auth.login(data.token);
-        } catch (error) {
-            console.error(error.message);
+            const mutationResponse = await login({ variables: { email: formState.email, password: formState.password } });
+            const token = mutationResponse.data.login.token;
+            Auth.login(token);
+        } catch (e) {
+            console.log(e)
         }
     };
-
+  
     const handleChange = (event) => {
         const { name, value } = event.target;
-
+  
         setFormState({
             ...formState,
             [name]: value,
         });
     };
+
     return(
         <div className="login">
             <div className="wrapper">

@@ -1,6 +1,6 @@
 import decode from 'jwt-decode';
 
-class Auth {
+class AuthService {
     get profile() {
         return decode(this.getToken());
     }
@@ -11,20 +11,18 @@ class Auth {
     }
 
     getToken() {
-        return localStorage.getItem('jwtToken');
+        return localStorage.getItem('token');
     }
 
     login(token) {
-        localStorage.setItem('jwtToken', token);
+        localStorage.setItem('token', token);
         window.location.assign('/');
     }
 
     logout() {
-        localStorage.removeItem('jwtToken'); 
+        localStorage.removeItem('token');
         window.location.reload();
     }
 }
 
-const AuthService = new Auth();
-
-export default AuthService;
+export default new AuthService();

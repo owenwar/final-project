@@ -17,17 +17,12 @@ function Signup() {
 
     try {
         const { data } = await REGISTER_USER(formState.username, formState.email, formState.password);
-        
-        if (data.errors) {
-            console.error('Error signing up:', data.errors[0].message);
-            return;
-        }
-
-        Auth.login(data.token);
+        Auth.login(data.addUser.token); 
     } catch (error) {
-        console.error(error.message);
+        console.error('Error signing up:', error);
     }
 };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
