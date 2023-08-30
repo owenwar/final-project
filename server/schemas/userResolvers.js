@@ -7,10 +7,14 @@ const jwt = require("jsonwebtoken");
 
 const userResolvers = {
   Query: {
-    async user(_, args, context) {
-      const user = await User.findById(context.user.id).select("-password");
-      return user;
-    },
+    async users() {
+        const users = await User.find().select("-password");
+        return users;
+      },
+      async user(_, { id }) {
+        const user = await User.findById(id).select("-password");
+        return user;
+      },
   },
   Mutation: {
     async register(_, { username, email, password }) {
