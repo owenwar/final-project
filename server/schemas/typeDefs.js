@@ -55,6 +55,7 @@ const typeDefs = gql`
   type Mutation {
     register(username: String!, email: String!, password: String!): AuthData!
     login(email: String!, password: String!): AuthData!
+    editUser(id: ID!, username: String, email: String): User!
     deleteUser(id: ID!): User!
     addToCart(productId: ID!, quantity: Int!): [CartItem]
     removeFromCart(productId: ID!): [CartItem]
@@ -73,6 +74,7 @@ const typeDefs = gql`
       createdAt: String!
       gender: String!
     ): Product!
+    editProduct(id: ID!, name: String, description: String, price: Float): Product!
     deleteProduct(id: ID!): Product!
   }
 `;

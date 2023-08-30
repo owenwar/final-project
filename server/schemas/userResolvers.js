@@ -44,6 +44,16 @@ const userResolvers = {
       });
       return { token, user };
     },
+    async editUser(_, { id, username, email }, context) {
+        const user = await User.findById(id);
+        if (!user) {
+          throw new Error('User not found');
+        }
+        user.username = username || user.username;
+        user.email = email || user.email;
+        await user.save();
+        return user;
+      },
     async deleteUser(_, { id }) {
         const user = await User.findById(id);
         if (!user) {
