@@ -19,18 +19,30 @@ export const GET_USER_BY_ID = async (userId) => {
   }
 }
 
-export const GET_PRODUCTS_BY_GENDER = gql`
-  query getProductsByGender($gender: String!) {
-    productsByGender(gender: $gender) {
-      name
-      description
-      price
-      onSale
-      imageUrl
-      category
-      colorTag
-      createdAt
-      updatedAt
-    }
-  }
+export const GET_PRODUCTS_BY_GENDER = async (gender) => {
+  const query = `
+      query getProductsByGender($gender: String!) {
+          productsByGender(gender: $gender) {
+              id
+              name
+              description
+              price
+              imageUrl
+              category
+              gender
+          }
+      }
   `;
+
+  try {
+      const response = await axios.post(GRAPHQL_ENDPOINT, {
+          query,
+          variables: {
+              gender,
+          },
+      });
+      return response.data.data.productsByGender;
+  } catch (error) {
+      console.error("Error getting products by gender:", error);
+  }
+};

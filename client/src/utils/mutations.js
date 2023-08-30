@@ -9,6 +9,8 @@ export const REGISTER_USER = async (username, email, password) => {
                 user {
                     id
                     username
+                    email
+                    password
                 }
             }
         }
