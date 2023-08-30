@@ -41,7 +41,7 @@ function Signup() {
         <div className="signup">
             <div className="wrapper">
                 <div className="title">
-                    <h1>Sign Up</h1>
+                    <h2>Sign Up</h2>
                 </div>
                 <div className="form">
                     <form onSubmit={handleFormSubmit}>
@@ -95,7 +95,7 @@ function Signup() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="submit">
+                        <div className="button-class">
                             <button type="submit">Sign Up</button>
                         </div>
                         <div className="link">
