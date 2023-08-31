@@ -1,31 +1,13 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Products.scss"
-import { GET_PRODUCTS_BY_GENDER } from "../../utils/queries";
+import List from "../../components/List/List";
 
-const MaleProducts = () => {
-
+const Products = () => {
     const catId = parseInt(useParams().id)
     const [maxPrice,setMaxPrice] = useState(1000)
     const [sort, setSort] = useState(null)
-    const [products, setProducts] = useState([]);
-    
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const fetchedProducts = await GET_PRODUCTS_BY_GENDER('male');
-                console.log(fetchedProducts)
-                setProducts(fetchedProducts);
-            } catch (error) {
-                console.error("Error fetching products:", error);
-            }
-        };
-
-        fetchProducts();
-    }, []);
-    
-
     return (
         <div className="products">
             <div className="left">
@@ -36,7 +18,6 @@ const MaleProducts = () => {
                         <label htmlFor="1">Shoes</label>
                     </div>
                 </div>
-
                 <div className="filterItem">
                     <h2>Filter by price</h2>
                     <div className="inputItem">
@@ -45,7 +26,6 @@ const MaleProducts = () => {
                         <span>{maxPrice}</span>
                     </div>
                 </div>
-
                 <div className="filterItem">
                     <h2>Sort by</h2>
                     <div className="inputItem">
@@ -58,23 +38,13 @@ const MaleProducts = () => {
                     </div>
                 </div>
             </div>
-
             <div className="right">
-                <img className="catImg" 
-                src="https://cdn.discordapp.com/attachments/892058013098184734/1131690360192630785/IMG_6899.jpg" 
+                <img className="catImg"
+                src="https://cdn.discordapp.com/attachments/892058013098184734/1131690360192630785/IMG_6899.jpg"
                 alt="" />
-                {products.map(product => (
-                <div key={product.id}>
-                    <h2>{product.name}</h2>
-                    <p>{product.description}</p>
-                    <p>Price: ${product.price}</p>
-                    <img src={product.imageUrl} alt={product.name} />
-                </div>
-            ))}
-                {/* <List gender={gender} catId={catId} maxPrice={maxPrice} sort={sort}/> */}
+                <List catId={catId} maxPrice={maxPrice} sort={sort}/>
             </div>
         </div>
     )
 }
-
-export default MaleProducts;
+export default Products;

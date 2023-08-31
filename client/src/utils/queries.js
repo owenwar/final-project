@@ -33,7 +33,6 @@ export const GET_PRODUCTS_BY_GENDER = async (gender) => {
           }
       }
   `;
-
   try {
       const response = await axios.post(GRAPHQL_ENDPOINT, {
           query,
@@ -45,4 +44,31 @@ export const GET_PRODUCTS_BY_GENDER = async (gender) => {
   } catch (error) {
       console.error("Error getting products by gender:", error);
   }
+};
+
+export const GET_ALL_PRODUCTS = async (gender) => {
+  const query = `
+      query getAllProducts {
+            products {
+              id
+              name
+              description
+              price
+              imageUrl
+              category
+              gender
+          }
+      }
+  `;
+  try {
+    const response = await axios.post(GRAPHQL_ENDPOINT, {
+        query,
+        variables: {
+            
+        },
+    });
+    return response.data.data.products;
+} catch (error) {
+    console.error("Error getting products:", error);
+}
 };
