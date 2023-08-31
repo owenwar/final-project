@@ -64,7 +64,6 @@ export const GET_ALL_PRODUCTS = async (gender) => {
     const response = await axios.post(GRAPHQL_ENDPOINT, {
         query,
         variables: {
-            
         },
     });
     return response.data.data.products;

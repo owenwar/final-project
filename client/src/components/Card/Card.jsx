@@ -9,6 +9,7 @@ const Card= () => {
           const fetchProducts = async () => {
               try {
                   const fetchedProducts = await GET_ALL_PRODUCTS();
+                  console.log(fetchedProducts)
                   setProducts(fetchedProducts);
               } catch (error) {
                   console.error("Error fetching products:", error);
