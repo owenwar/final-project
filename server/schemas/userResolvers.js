@@ -62,21 +62,32 @@ const userResolvers = {
         await User.findByIdAndDelete(id);
         return user;
       },
-    async addToCart(_, { productId }, context) {
-      const user = await User.findById(context.user.id);
-      user.cart.push(productId);
-      await user.save();
-      return user;
-    },
-    async removeFromCart(_, { productId }, context) {
-      const user = await User.findById(context.user.id);
-      const index = user.cart.indexOf(productId);
-      if (index > -1) {
-        user.cart.splice(index, 1);
+      async addToCart(_, { productId, quantity }, context) {
+        const user = await User.findById(context.user.id);
+        const cartItem = user.cart.find(item => item.product.toString() === productId);
+        if (cartItem) {
+          cartItem.quantity += quantity;
+        } else {
+          user.cart.push({ product: productId, quantity });
+        }
         await user.save();
-      }
-      return user;
-    },
+        return user.cart;
+      },
+      async removeFromCart(_, { productId }, context) {
+        const user = await User.findById(context.user.id);
+        user.cart = user.cart.filter(item => item.product.toString() !== productId);
+        await user.save();
+        return user.cart;
+      },
+      async updateCartQuantity(_, { productId, quantity }, context) {
+        const user = await User.findById(context.user.id);
+        const cartItem = user.cart.find(item => item.product.toString() === productId);
+        if (cartItem) {
+          cartItem.quantity = quantity;
+          await user.save();
+        }
+        return user.cart;
+      },
     async addToFavorites(_, { productId }, context) {
       const user = await User.findById(context.user.id);
       user.favorites.push(productId);

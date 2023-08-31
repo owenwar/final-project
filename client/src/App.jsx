@@ -13,6 +13,7 @@ import AdminForm from "./pages/AdminForm/AdminForm";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import "./app.scss"
+import Checkout from "./pages/Checkout/Checkout";
 const Layout = () => {
   return (
     <div className="app">
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login/>
       },
+      {
+        path: "/checkout",
+        element: <Checkout/>
+      }
     ]
   },
 ])

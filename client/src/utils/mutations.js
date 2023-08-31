@@ -101,3 +101,50 @@ export const ADD_PRODUCT = async (image, category, name, description, price, gen
     throw new Error("Product addition failed");
   }
 };
+
+export const GET_ORDERS_BY_USER = async (userId) => {
+  const query = `
+    query OrdersByUser($userId: ID!) {
+      ordersByUser(userId: $userId) {
+        id
+        products {
+          id
+          title
+          price
+        }
+        totalAmount
+      }
+    }
+  `;
+
+  try {
+    const response = await axios.post(GRAPHQL_ENDPOINT, {
+      query,
+      variables: { userId }
+    });
+    return response.data.data.ordersByUser;
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+  }
+};
+
+
+export const CREATE_CHECKOUT_SESSION = async (productIds) => {
+  const query = `
+    mutation CreateCheckoutSession($productIds: [ID!]!) {
+      createCheckoutSession(productIds: $productIds) {
+        sessionId
+      }
+    }
+  `;
+
+  try {
+    const response = await axios.post(GRAPHQL_ENDPOINT, {
+      query,
+      variables: { productIds }
+    });
+    return response.data.data.createCheckoutSession.sessionId;
+  } catch (error) {
+    console.error("Error creating checkout session:", error);
+  }
+};

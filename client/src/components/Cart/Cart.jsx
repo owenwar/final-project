@@ -1,57 +1,88 @@
-import React from 'react'
-import "./Cart.scss"
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import "./Cart.scss";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
+const GRAPHQL_ENDPOINT = "http://localhost:3001/graphql";
 
 const Cart = () => {
- const data = [
-   {
-     id: 1,
-     img: "https://cdn.discordapp.com/attachments/892058013098184734/1132235387792785480/IMG_6924.png",
-     img2: "https://cdn.discordapp.com/attachments/892058013098184734/1132199718835978291/IMG_6917.png",
-     title: "Short sleeve raf shirt",
-     desc: "Short sleeve raf shirt",
-     isNew: true,
-     oldPrice: 280,
-     price: 200,
- },
- {
-   id: 2,
-   img: "https://cdn.discordapp.com/attachments/892058013098184734/1132199718492053504/IMG_6918.png",
-   title: "Aris shorts",
-   desc: "Aris shorts",
-   isNew: false,
-   oldPrice: 340,
-   price: 300,
- },
- ];
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      const query = `
+        query {
+          cart {
+            product {
+              id
+              name
+              description
+              price
+              imageUrl
+            }
+            quantity
+          }
+        }
+      `;
+      try {
+        const response = await axios.post(GRAPHQL_ENDPOINT, { query });
+        setCartItems(response.data.data.cart);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+    fetchCartItems();
+  }, []);
 
- return (
-   <div className='cart'>
-     <h1>Products in your cart</h1>
-     {data?.map(item=>(
-       <div className="item" key={item.id}>
-         <img src={item.img} alt="" />
-         <div className="details">
-           <h1>{item.title}</h1>
-           <p>{item.desc?.substring(0,100)}</p>
+  const handleRemoveFromCart = async (productId) => {
+    const query = `
+      mutation RemoveFromCart($productId: ID!) {
+        removeFromCart(productId: $productId) {
+          product {
+            id
+          }
+        }
+      }
+    `;
+    try {
+      await axios.post(GRAPHQL_ENDPOINT, {
+        query,
+        variables: { productId }
+      });
+      setCartItems(cartItems.filter(item => item.product.id !== productId));
+    } catch (err) {
+      console.error("Failed to remove item from cart:", err);
+    }
+  };
 
+  const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
-           <div className="price">1 x ${item.price}</div>
-         </div>
-         <DeleteOutlinedIcon className="delete"/>
-       </div>
-     ))}
-     <div className="total">
-       <span>Subtotal</span>
-       <span>$123</span>
-     </div>
-     <button>Proceed to Checkout</button>
-     <span className="reset">Reset Cart</span>
-   </div>
- )
-}
+  if (loading) return <p>Loading...</p>;
 
+  return (
+    <div className='cart'>
+      <h1>Products in your cart</h1>
+      {cartItems.map(item => (
+        <div className="item" key={item.id}>
+          <img src={item.img} alt="" />
+          <div className="details">
+            <h1>{item.title}</h1>
+            <p>{item.desc?.substring(0, 100)}</p>
+            <div className="price">{item.quantity} x ${item.price}</div>
+          </div>
+          <DeleteOutlinedIcon className="delete" onClick={() => handleRemoveFromCart(item.id)} />
+        </div>
+      ))}
+      <div className="total">
+        <span>Subtotal</span>
+        <span>${subtotal}</span>
+      </div>
+      <button>Proceed to Checkout</button>
+      <span className="reset">Reset Cart</span>
+    </div>
+  );
+};
 
-export default Cart
+export default Cart;
