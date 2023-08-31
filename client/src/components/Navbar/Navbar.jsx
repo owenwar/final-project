@@ -19,20 +19,10 @@ const Navbar = () => {
           <div className="item">
             <Link
               // className={`link ${selectedGender === 'male' ? 'active' : ''}`}
-              to="/maleproducts" // Pass the gender as a parameter in the URL
+              to="/products" // Pass the gender as a parameter in the URL
               // onClick={() => setSelectedGender('male')}
             >
-              Menswear
-            </Link>
-          </div>
-
-          <div className="item">
-            <Link
-              // className={`link ${selectedGender === 'female' ? 'active' : ''}`}
-              to="/femaleproducts" // Pass the gender as a parameter in the URL
-              // onClick={() => setSelectedGender('female')}
-            >
-              Womenswear
+              Products
             </Link>
           </div>
 

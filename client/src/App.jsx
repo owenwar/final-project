@@ -7,8 +7,7 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
-import MaleProducts from "./pages/Products/MaleProducts";
-import FemaleProducts from "./pages/Products/FemaleProducts";
+import Products from "./pages/Products/Products";
 import AdminForm from "./pages/AdminForm/AdminForm";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
@@ -34,12 +33,8 @@ const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path:"/maleproducts",
-        element: <MaleProducts/>
-      },
-      {
-        path:"/femaleproducts",
-        element: <FemaleProducts/>
+        path:"/products",
+        element: <Products/>
       },
       {
         path:"/product/:id",
