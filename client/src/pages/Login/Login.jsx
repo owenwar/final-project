@@ -35,7 +35,7 @@ const Login = () => {
         <div className="login">
             <div className="wrapper">
                 <div className="title">
-                    <h1>Sign In</h1>
+                    <h2>Sign In</h2>
                 </div>
                 <div className="form">
                     <form onSubmit={handleFormSubmit}>
@@ -59,7 +59,7 @@ const Login = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="button">
+                        <div className="button-class">
                             <button type="submit">Sign In</button>
                         </div>
                         <div className="link">

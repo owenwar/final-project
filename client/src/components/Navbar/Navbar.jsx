@@ -5,14 +5,14 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {Link} from "react-router-dom";
 import Cart from '../Cart/Cart';
+import Search from '../Search/search';
 import "./Navbar.scss";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false)
-  
-    return (
-      <div className='navbar'>
-        <div className="wrapper"> 
+ const [open, setOpen] = useState(false)
+  return (
+    <div className='navbar'>
+      <div className="wrapper"> 
 
           <div className="left">
 
@@ -45,22 +45,22 @@ const Navbar = () => {
             <Link className='link' to="/">Stores</Link>
           </div> */}
 
-          <div className="icons">
-            <SearchOutlinedIcon/>
-            <Link className='link' to='/signUp'>
-                <PersonOutlineOutlinedIcon />
-            </Link>
-            <FavoriteBorderOutlinedIcon/>
-            <div className="cartIcon" onClick={()=>setOpen(!open)}>
-              <ShoppingCartOutlinedIcon/>
-              <span>0</span>
-            </div>
-          </div>
+        <div className="icons">
+          <SearchOutlinedIcon/>
+          <Link className='link' to='/signUp'>
+              <PersonOutlineOutlinedIcon />
+          </Link>
+          <FavoriteBorderOutlinedIcon/>
+          <div className="cartIcon" onClick={()=>setOpen(!open)}>
+            <ShoppingCartOutlinedIcon/>
+            <span>0</span>
           </div>
         </div>
-        {open && <Cart/>}
+        </div>
       </div>
-    )
+      {open && <Cart/>}
+    </div>
+  )
 }
 
 export default Navbar;
