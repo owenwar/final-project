@@ -20,7 +20,7 @@ const Card= () => {
     return (
       <div>
         {products.map(product => (
-          <Link className="link" to={`/product/${product.id}`}>  
+          <Link key={product.id} className="link" to={`/product/${product.id}`}>  
             
           <div className="card">
               <div className="image">
