@@ -12,7 +12,7 @@ const Navbar = () => {
  const [open, setOpen] = useState(false)
   return (
     <div className='navbar'>
-      <div className="wrapper"> 
+      <div className="navwrapper"> 
 
           <div className="left">
 
