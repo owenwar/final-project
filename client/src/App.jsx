@@ -10,11 +10,8 @@ import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
 import AdminForm from "./pages/AdminForm/AdminForm";
 import Signup from "./pages/Signup/Signup";
-<<<<<<< HEAD
 import Search from "./components/Search/search";
-=======
 import Login from "./pages/Login/Login";
->>>>>>> main
 import "./app.scss"
 import Checkout from "./pages/Checkout/Checkout";
 const Layout = () => {
@@ -53,13 +50,12 @@ const router = createBrowserRouter([
         element: <Signup/>
       },
       {
-<<<<<<< HEAD
         path: "/search",
         element: <Search/>
-=======
+      },
+      {
         path: "/login",
         element: <Login/>
->>>>>>> main
       },
       {
         path: "/checkout",
