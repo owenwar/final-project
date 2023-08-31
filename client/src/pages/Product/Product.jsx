@@ -10,7 +10,7 @@ const Product = () => {
     const [product, setProduct] = useState([]);
     const [quantity, setQuantity] = useState(1)
     const { id } = useParams();
-    
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -41,7 +41,7 @@ const Product = () => {
                 <p>{product.description}</p>
                 <h4>
                     price:
-                    <span className="price">$199</span>
+                    <span className="price">{ product.price }</span>
                 </h4>
                 <div className="quantity">
                     <button onClick={()=>setQuantity((prev) => (prev === 1 ? 1 : prev -1))}>-</button>

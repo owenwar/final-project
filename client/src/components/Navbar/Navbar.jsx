@@ -33,7 +33,7 @@ const Navbar = () => {
 
           <div className="right">
 
-          <div className="item">
+          {/* <div className="item">
             <Link className='link' to="/">About</Link>
           </div>
 
@@ -43,7 +43,7 @@ const Navbar = () => {
 
           <div className="item">
             <Link className='link' to="/">Stores</Link>
-          </div>
+          </div> */}
 
           <div className="icons">
             <SearchOutlinedIcon/>
