@@ -1,35 +1,48 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./Product.scss"
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BalanceIcon from "@mui/icons-material/Balance";
+import { GET_PRODUCT_BY_ID } from "../../utils/queries";
 
 const Product = () => {
-    const [selectedImg, setSelectedImg] = useState(0)
+    const [product, setProduct] = useState([]);
     const [quantity, setQuantity] = useState(1)
+    const { id } = useParams();
+    
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const fetchedProduct = await GET_PRODUCT_BY_ID(id);
+                setProduct(fetchedProduct);
+                console.log(fetchedProduct)
+            } catch (error) {
+                console.error("Error fetching product:", error);
+            }
+        };
 
-    const images = [
-        "https://cdn.discordapp.com/attachments/892058013098184734/1131690359064375357/IMG_6905.jpg",
-        "https://cdn.discordapp.com/attachments/892058013098184734/1131690360461082755/IMG_6904.jpg",
-    ]
+        fetchProduct();
+    }, [id]);
 
     return (
         <div className="product">
             <div className="left">
                 <div className="images">
-                    <img src={images[0]} alt="" onClick={(e) => setSelectedImg(0)} />
-                    <img src={images[1]} alt="" onClick={(e) => setSelectedImg(1)} />
+                    <img src={product.imageUrl} alt="" className="mainImg" />
                 </div>
                 <div className="mainImg">
-                    <img src={images[selectedImg]} alt="" />
+                <img src={product.imageUrl} alt="" className="mainImg"/>
                 </div>
             </div>
 
             <div className="right">
-                <h1>Title</h1>
-                <span className="price">$199</span>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, quisquam delectus dignissimos, aliquam aspernatur aut, placeat repudiandae id sint doloribus debitis asperiores cupiditate dolor iusto animi facere. In, vero laboriosam!</p>
+                <h1>{product.name}</h1>
+                <p>{product.description}</p>
+                <h4>
+                    price:
+                    <span className="price">$199</span>
+                </h4>
                 <div className="quantity">
                     <button onClick={()=>setQuantity((prev) => (prev === 1 ? 1 : prev -1))}>-</button>
                     {quantity}

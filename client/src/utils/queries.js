@@ -72,3 +72,30 @@ export const GET_ALL_PRODUCTS = async (gender) => {
     console.error("Error getting products:", error);
 }
 };
+
+export const GET_PRODUCT_BY_ID = async (productId) => {
+  const query = `
+    query getProductById($productId: ID!) {
+      product(id: $productId) {
+        id
+        name
+        description
+        price
+        imageUrl
+        category
+        gender
+      }
+    }
+  `;
+  try {
+    const response = await axios.post(GRAPHQL_ENDPOINT, {
+      query,
+      variables: {
+        productId,
+      },
+    });
+    return response.data.data.product;
+  } catch (error) {
+    console.error("Error getting product by ID:", error);
+  }
+};
