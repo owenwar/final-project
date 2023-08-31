@@ -1,6 +1,7 @@
 require("dotenv").config();
 const User = require("../models/User");
 const Product = require("../models/Product");
+const CartItem = require("../models/CartItem");
 const Order = require("../models/Order");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -8,13 +9,13 @@ const jwt = require("jsonwebtoken");
 const userResolvers = {
   Query: {
     async users() {
-        const users = await User.find().select("-password");
-        return users;
-      },
-      async user(_, { id }) {
-        const user = await User.findById(id).select("-password");
-        return user;
-      },
+      const users = await User.find().select("-password");
+      return users;
+    },
+    async user(_, { id }) {
+      const user = await User.findById(id).select("-password");
+      return user;
+    },
   },
   Mutation: {
     async register(_, { username, email, password }) {
@@ -45,49 +46,23 @@ const userResolvers = {
       return { token, user };
     },
     async editUser(_, { id, username, email }, context) {
-        const user = await User.findById(id);
-        if (!user) {
-          throw new Error('User not found');
-        }
-        user.username = username || user.username;
-        user.email = email || user.email;
-        await user.save();
-        return user;
-      },
+      const user = await User.findById(id);
+      if (!user) {
+        throw new Error("User not found");
+      }
+      user.username = username || user.username;
+      user.email = email || user.email;
+      await user.save();
+      return user;
+    },
     async deleteUser(_, { id }) {
-        const user = await User.findById(id);
-        if (!user) {
-          throw new Error('User not found');
-        }
-        await User.findByIdAndDelete(id);
-        return user;
-      },
-      async addToCart(_, { productId, quantity }, context) {
-        const user = await User.findById(context.user.id);
-        const cartItem = user.cart.find(item => item.product.toString() === productId);
-        if (cartItem) {
-          cartItem.quantity += quantity;
-        } else {
-          user.cart.push({ product: productId, quantity });
-        }
-        await user.save();
-        return user.cart;
-      },
-      async removeFromCart(_, { productId }, context) {
-        const user = await User.findById(context.user.id);
-        user.cart = user.cart.filter(item => item.product.toString() !== productId);
-        await user.save();
-        return user.cart;
-      },
-      async updateCartQuantity(_, { productId, quantity }, context) {
-        const user = await User.findById(context.user.id);
-        const cartItem = user.cart.find(item => item.product.toString() === productId);
-        if (cartItem) {
-          cartItem.quantity = quantity;
-          await user.save();
-        }
-        return user.cart;
-      },
+      const user = await User.findById(id);
+      if (!user) {
+        throw new Error("User not found");
+      }
+      await User.findByIdAndDelete(id);
+      return user;
+    },
     async addToFavorites(_, { productId }, context) {
       const user = await User.findById(context.user.id);
       user.favorites.push(productId);
@@ -104,6 +79,13 @@ const userResolvers = {
       return user;
     },
   },
+
+  CartItem: {
+    product: async (parent, args, context, info) => {
+      return await Product.findById(parent.productId);
+    },
+  },
+
 };
 
 module.exports = userResolvers;

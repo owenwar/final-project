@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const stripe = require("../config/stripe");
+const stripe = require("../../config/stripe");
 const Product = require("../../models/Product"); // Import your Product model
 
 router.post("/create-checkout-session", async (req, res) => {

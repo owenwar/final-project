@@ -57,14 +57,15 @@ const Cart = () => {
     }
   };
 
-  const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  const subtotal = cartItems ? cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0) : 0;
+
 
   if (loading) return <p>Loading...</p>;
 
   return (
     <div className='cart'>
       <h1>Products in your cart</h1>
-      {cartItems.map(item => (
+      {cartItems && cartItems.map(item => (
         <div className="item" key={item.id}>
           <img src={item.img} alt="" />
           <div className="details">

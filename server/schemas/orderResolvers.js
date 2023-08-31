@@ -15,29 +15,6 @@ const orderResolvers = {
       await newOrder.save();
       return newOrder;
     },
-    async createCheckoutSession(_, { productIds }) {
-      const products = await Product.find({ id: { $in: productIds } });
-      const line_items = products.map((product) => ({
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: product.name,
-            images: [product.imageUrl],
-          },
-          unit_amount: product.price * 100,
-        },
-        quantity: 1,
-      }));
-
-      const session = await stripe.checkout.sessions.create({
-        line_items,
-        mode: "payment",
-        success_url: "http://localhost:3000/success",
-        cancel_url: "http://localhost:3000/cancel",
-      });
-
-      return { sessionId: session.id };
-    },
   },
 };
 

@@ -17,13 +17,9 @@ const typeDefs = gql`
 
   type CartItem {
     id: ID!
-    title: String!
-    desc: String!
-    price: Float!
+    product: Product!
     quantity: Int!
-    img: String!
   }
-  
 
   type Product {
     id: ID!
@@ -53,7 +49,7 @@ const typeDefs = gql`
     products: [Product]
     productsByGender(gender: String!): [Product]
     product(id: ID!): Product
-
+    ordersByUser(userId: ID!): [Order]
     cart: [CartItem]
     favorites: [Product]
   }
@@ -66,7 +62,7 @@ const typeDefs = gql`
     addToCart(productId: ID!, quantity: Int!): [CartItem]
     removeFromCart(productId: ID!): [CartItem]
     updateCartQuantity(productId: ID!, quantity: Int!): [CartItem]
-    createCheckoutSession(productIds: [ID!]!): CheckoutSession!
+
     addToFavorites(productId: ID!): [Product]
     removeFromFavorites(productId: ID!): [Product]
     createOrder(stripeToken: String!): Order
@@ -81,7 +77,12 @@ const typeDefs = gql`
       createdAt: String!
       gender: String!
     ): Product!
-    editProduct(id: ID!, name: String, description: String, price: Float): Product!
+    editProduct(
+      id: ID!
+      name: String
+      description: String
+      price: Float
+    ): Product!
     deleteProduct(id: ID!): Product!
   }
 `;

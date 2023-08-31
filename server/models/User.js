@@ -6,12 +6,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     role: { type: String, enum: ['admin', 'user'], default: 'user' },
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
-    cart: [
-        {
-            product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-            quantity: Number
-        }
-    ],
+    cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CartItem' }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: Date
 });

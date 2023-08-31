@@ -127,24 +127,3 @@ export const GET_ORDERS_BY_USER = async (userId) => {
     console.error("Error fetching orders:", error);
   }
 };
-
-
-export const CREATE_CHECKOUT_SESSION = async (productIds) => {
-  const query = `
-    mutation CreateCheckoutSession($productIds: [ID!]!) {
-      createCheckoutSession(productIds: $productIds) {
-        sessionId
-      }
-    }
-  `;
-
-  try {
-    const response = await axios.post(GRAPHQL_ENDPOINT, {
-      query,
-      variables: { productIds }
-    });
-    return response.data.data.createCheckoutSession.sessionId;
-  } catch (error) {
-    console.error("Error creating checkout session:", error);
-  }
-};

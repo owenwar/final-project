@@ -19,7 +19,7 @@ const Card= () => {
       }, []);
     return (
       <div>
-        {products.map(product => (
+        {products && products.map(product => (
           <Link key={product.id} className="link" to={`/product/${product.id}`}>  
             
           <div className="card">
