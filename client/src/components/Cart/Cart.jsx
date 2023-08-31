@@ -57,7 +57,7 @@ const Cart = () => {
     }
   };
 
-  const subtotal = cartItems ? cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0) : 0;
+  const subtotal = cartItems ? cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0) : 0;
 
 
   if (loading) return <p>Loading...</p>;

@@ -99,3 +99,27 @@ export const GET_PRODUCT_BY_ID = async (productId) => {
     console.error("Error getting product by ID:", error);
   }
 };
+
+export const ADD_TO_CART = async (productId, quantity) => {
+  const query = `
+    mutation AddToCart($productId: ID!, $quantity: Int!) {
+      addToCart(productId: $productId, quantity: $quantity) {
+        product {
+          id
+        }
+      }
+    }
+  `;
+  try {
+    const response = await axios.post(GRAPHQL_ENDPOINT, {
+      query,
+      variables: {
+        productId,
+        quantity,
+      },
+    });
+    return response.data.data.addToCart;
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+  }
+};
