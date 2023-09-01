@@ -19,7 +19,13 @@ N/a
 - vs.code installed to use this applicationn
 - Clone the following repository after installing vs.code
 ## Usage
-- in terminal run "npm i" as it will download necessary dependencies then run "npm run build" to download buid files. Next run "npm run start" to start the react application.
+- in terminal run "npm i" as it will download necessary dependencies then run "npm run build" to download buid files. Next run "npm run dev" to start the react application.
+
+## Application screenshots
+![Website screenshot](./client//assets/images/Capture1.PNG)
+
+![Website screenshot](./client//assets/images/Capture2.PNG)
+
 ## Deployment
 Repo: https://github.com/owenwar/final-project
 Deployment: https://ddgo-ecommerce-40d71dee0685.herokuapp.com/
